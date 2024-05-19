@@ -1,0 +1,22 @@
+div {
+  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px auto;
+  padding: 20px;
+
+  background-color: skyblue;
+  border-radius: 20px;
+}
+
+button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+hr {
+  max-width: 400px;
+}
