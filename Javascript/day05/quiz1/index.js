@@ -71,8 +71,8 @@ const four = data
   .filter(({ money, timezone }) => {
     const numberMoney = Number(money.replace("$", ""));
     const isValidMoney = 25000 <= numberMoney && numberMoney <= 50000;
-    const isvalidTimezone = timezone.includes("Africa");
-    return isValidMoney && isvalidTimezone;
+    const isValidTimezone = timezone.includes("Africa");
+    return isValidMoney && isValidTimezone;
   })
   .map(({ timezone, fullName }) => ({
     timezone: timezone.split("/")[1],
