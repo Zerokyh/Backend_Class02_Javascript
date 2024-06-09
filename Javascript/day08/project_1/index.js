@@ -7,28 +7,11 @@ const data = [
   { cityName: "sydney", lat: -33.86, lon: 151.2 },
 ];
 
-data.forEach(({ cityName, lat, lon }) => {
-  const btn = document.querySelector(`.${cityName}`);
-  btn.addEventListener("click", () => {
-    const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKEY}`;
-    const weatherAPI = fetch(URL);
-    weatherAPI
-      .then((value) => value.json())
-      .then((value) => value.weather[0].main)
-      .then((value) => {
-        const weatherPic = document.querySelector(".whatIsWeather");
-        if (value == "Clouds") {
-          weatherPic.classList.toggle("cloud");
-          weatherPic.classList.toggle("clear");
-          weatherPic.classList.toggle("rain");
-        } else if (value == "Clear") {
-          weatherPic.classList.toggle("clear");
-        } else if (value == "Rain") {
-          weatherPic.classList.toggle("rain");
-        }
-      });
-  });
-});
+const weatherPhoto = {
+  Clear: "./image/clear.jpg",
+  Rain: "./image/rain.jpg",
+  Clouds: "./image/cloud.jpg",
+};
 
 data.forEach(({ cityName, lat, lon }) => {
   const btn = document.querySelector(`.${cityName}`);
@@ -37,10 +20,15 @@ data.forEach(({ cityName, lat, lon }) => {
     const weatherAPI = fetch(URL);
     weatherAPI
       .then((value) => value.json())
-      .then((value) => value.main.temp)
+      .then(({ main, weather }) => ({ main, weather }))
       .then((value) => {
+        const weatherPic = document.querySelector(".whatIsWeather");
+        weatherPic.style.backgroundImage = `url("${
+          weatherPhoto[value.weather[0].main]
+        }")`;
+
         const tempernature = document.querySelector(".displayTempernature");
-        tempernature.innerText = `${cityName}의 현재 온도는 ${value}℃`;
+        tempernature.innerText = `${cityName}의 현재 온도는 ${value.main.temp}℃ ,  현재 날씨는 ${value.weather[0].main}`;
       });
   });
 });
